@@ -17,7 +17,6 @@ function Relief:PLAYER_LOGIN()
 	Minimap:SetMaskTexture(TEXTURE)
 	Minimap:SetArchBlobRingScalar(0)
 	Minimap:SetQuestBlobRingScalar(0)
-	Minimap:SetScale(0.9)
 
 	Minimap:SetScript('OnMouseUp', function(self, button)
 		if(button == 'RightButton') then
