@@ -7,11 +7,11 @@ local FONT = rainDB and rainDB.font2 or GameFontNormal:GetFont()
 
 local GetPlayerMapPosition = GetPlayerMapPosition
 
-local Relief = CreateFrame('Frame', nil, Minimap)
-Relief:SetScript('OnEvent', function(self, event, ...) self[event](self, ...) end)
-Relief:RegisterEvent('PLAYER_LOGIN')
+local addon = CreateFrame('Frame', nil, Minimap)
+addon:SetScript('OnEvent', function(self, event, ...) self[event](self, ...) end)
+addon:RegisterEvent('PLAYER_LOGIN')
 
-function Relief:PLAYER_LOGIN()
+function addon:PLAYER_LOGIN()
 	MinimapCluster:ClearAllPoints()
 	MinimapCluster:SetPoint('TOPRIGHT', -10, -10)
 	Minimap:SetBackdrop(BACKDROP)
@@ -108,7 +108,7 @@ function Relief:PLAYER_LOGIN()
 	self:RegisterEvent('UPDATE_PENDING_MAIL')
 end
 
-function Relief:UPDATE_INVENTORY_DURABILITY()
+function addon:UPDATE_INVENTORY_DURABILITY()
 	local alert = 0
 	for index in next, INVENTORY_ALERT_STATUS_SLOTS do
 		local status = GetInventoryAlertStatus(index)
@@ -132,7 +132,7 @@ function Relief:UPDATE_INVENTORY_DURABILITY()
 	end
 end
 
-function Relief:UPDATE_PENDING_MAIL()
+function addon:UPDATE_PENDING_MAIL()
 	if(GetRestrictedAccountData() > 0) then
 		return MiniMapMailFrame:Hide()
 	end
@@ -145,7 +145,7 @@ function Relief:UPDATE_PENDING_MAIL()
 	end
 end
 
-function Relief:MAIL_CLOSED()
+function addon:MAIL_CLOSED()
 	local _, numInboxItems = GetInboxNumItems()
 	if(HasNewMail() and numInboxItems == 0) then
 		MiniMapMailFrame:Hide()
