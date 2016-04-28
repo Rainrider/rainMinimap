@@ -5,6 +5,8 @@ local BACKDROP = {
 }
 local FONT = rainDB and rainDB.font2 or GameFontNormal:GetFont()
 
+local GetPlayerMapPosition = GetPlayerMapPosition
+
 local Relief = CreateFrame('Frame', nil, Minimap)
 Relief:SetScript('OnEvent', function(self, event, ...) self[event](self, ...) end)
 Relief:RegisterEvent('PLAYER_LOGIN')
@@ -65,6 +67,17 @@ function Relief:PLAYER_LOGIN()
 	MiniMapInstanceDifficulty:UnregisterAllEvents()
 	MinimapCluster:EnableMouse(false)
 	DurabilityFrame:SetAlpha(0)
+
+	local coordsText = Minimap:CreateFontString(nil, "OVERLAY")
+	coordsText:SetPoint("BOTTOM", Minimap, "TOP", 0, 5)
+	coordsText:SetFont(FONT, 12)
+	coordsText:SetShadowColor(0, 0, 0)
+	coordsText:SetShadowOffset(0.75, -0.75)
+
+	C_Timer.NewTicker(1.0, function()
+		local x, y = GetPlayerMapPosition("player")
+		coordsText:SetFormattedText("%.1f / %.1f", x * 100, y * 100)
+	end)
 
 	for _, name in next, {
 		'GameTimeFrame',
