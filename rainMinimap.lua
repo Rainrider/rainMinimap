@@ -39,6 +39,13 @@ function Relief:PLAYER_LOGIN()
 	MinimapZoneTextButton:SetParent(Minimap)
 	MinimapZoneTextButton:SetPoint("TOP", 5, -5)
 
+	TimeManagerClockButton:SetPoint("BOTTOM", 0, -1)
+	local ClockFrame, ClockTime = TimeManagerClockButton:GetRegions()
+	ClockFrame:Hide()
+	ClockTime:SetFont(FONT, 12)
+	ClockTime:SetShadowColor(0, 0, 0)
+	ClockTime:SetShadowOffset(0.75, -0.75)
+
 	GarrisonLandingPageMinimapButton:ClearAllPoints()
 	GarrisonLandingPageMinimapButton:SetParent(Minimap)
 	GarrisonLandingPageMinimapButton:SetPoint('BOTTOMLEFT')
@@ -136,5 +143,3 @@ end
 function GetMinimapShape()
 	return 'SQUARE'
 end
-
-function TimeManager_LoadUI() end
