@@ -9,9 +9,8 @@ Relief:SetScript('OnEvent', function(self, event, ...) self[event](self, ...) en
 Relief:RegisterEvent('PLAYER_LOGIN')
 
 function Relief:PLAYER_LOGIN()
-	Minimap:ClearAllPoints()
-	Minimap:SetParent(UIParent)
-	Minimap:SetPoint('TOPRIGHT', -20, -20)
+	MinimapCluster:ClearAllPoints()
+	MinimapCluster:SetPoint('TOPRIGHT', -10, -10)
 	Minimap:SetBackdrop(BACKDROP)
 	Minimap:SetBackdropColor(0, 0, 0)
 	Minimap:SetMaskTexture(TEXTURE)
