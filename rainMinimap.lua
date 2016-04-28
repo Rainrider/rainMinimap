@@ -3,6 +3,7 @@ local BACKDROP = {
 	bgFile = TEXTURE,
 	insets = {top = -1, bottom = -1, left = -1, right = -1}
 }
+local FONT = rainDB and rainDB.font2 or GameFontNormal:GetFont()
 
 local Relief = CreateFrame('Frame', nil, Minimap)
 Relief:SetScript('OnEvent', function(self, event, ...) self[event](self, ...) end)
@@ -31,6 +32,13 @@ function Relief:PLAYER_LOGIN()
 		self:SetZoom(self:GetZoom() + (self:GetZoom() == 0 and direction < 0 and 0 or direction))
 	end)
 
+	MinimapZoneText:SetJustifyH("CENTER")
+	MinimapZoneText:SetFont(FONT, 12)
+	MinimapZoneText:SetShadowColor(0, 0, 0)
+	MinimapZoneText:SetShadowOffset(0.75, -0.75)
+	MinimapZoneTextButton:SetParent(Minimap)
+	MinimapZoneTextButton:SetPoint("TOP", 5, -5)
+
 	GarrisonLandingPageMinimapButton:ClearAllPoints()
 	GarrisonLandingPageMinimapButton:SetParent(Minimap)
 	GarrisonLandingPageMinimapButton:SetPoint('BOTTOMLEFT')
@@ -58,7 +66,6 @@ function Relief:PLAYER_LOGIN()
 		'MinimapNorthTag',
 		'MinimapZoomIn',
 		'MinimapZoomOut',
-		'MinimapZoneTextButton',
 		'MiniMapMailBorder',
 		'MiniMapTracking',
 		'MiniMapWorldMapButton',
