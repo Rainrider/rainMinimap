@@ -3,6 +3,7 @@
 ## Version: 1.0
 ## Title: rain|cff0099ccMinimap|r
 ## Notes: Minimap simplicity
+## OptionalDeps: rainLib
 ## X-Credits: p3lim
 
 rainMinimap.lua
