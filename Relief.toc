@@ -1,7 +1,0 @@
-## Interface: 60100
-## Author: p3lim
-## Version: Alpha
-## Title: Relief
-## Notes: Minimap simplicity
-
-Relief.lua
