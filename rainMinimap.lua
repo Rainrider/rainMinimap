@@ -55,7 +55,7 @@ function addon:PLAYER_LOGIN()
 
 	QueueStatusMinimapButton:ClearAllPoints()
 	QueueStatusMinimapButton:SetParent(Minimap)
-	QueueStatusMinimapButton:SetPoint('TOPRIGHT')
+	QueueStatusMinimapButton:SetPoint('BOTTOMRIGHT')
 	QueueStatusMinimapButton:SetHighlightTexture(nil)
 
 	MiniMapMailFrame:ClearAllPoints()
