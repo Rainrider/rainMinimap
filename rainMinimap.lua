@@ -34,12 +34,35 @@ function addon:PLAYER_LOGIN()
 		self:SetZoom(self:GetZoom() + (self:GetZoom() == 0 and direction < 0 and 0 or direction))
 	end)
 
+	local coordsText = Minimap:CreateFontString(nil, "OVERLAY")
+	coordsText:SetPoint("BOTTOM", Minimap, "TOP", 0, 5)
+	coordsText:SetFont(FONT, 12)
+	coordsText:SetShadowColor(0, 0, 0)
+	coordsText:SetShadowOffset(0.75, -0.75)
+
+	local function UpdatePlayerCoords()
+		local x, y = GetPlayerMapPosition("player")
+		if (x and y) then
+			coordsText:SetFormattedText("%.1f / %.1f", x * 100, y * 100)
+		end
+	end
+
+	local ticker
+
 	MinimapZoneText:SetJustifyH("CENTER")
 	MinimapZoneText:SetFont(FONT, 12)
 	MinimapZoneText:SetShadowColor(0, 0, 0)
 	MinimapZoneText:SetShadowOffset(0.75, -0.75)
 	MinimapZoneTextButton:SetParent(Minimap)
 	MinimapZoneTextButton:SetPoint("TOP", 5, -5)
+	MinimapZoneTextButton:SetScript("OnEnter", function()
+		ticker = C_Timer.NewTicker(1, UpdatePlayerCoords)
+		coordsText:Show()
+	end)
+	MinimapZoneTextButton:SetScript("OnLeave", function()
+		ticker:Cancel()
+		coordsText:Hide()
+	end)
 
 	TimeManagerClockButton:SetPoint("BOTTOM", 0, -1)
 	local ClockFrame, ClockTime = TimeManagerClockButton:GetRegions()
@@ -67,17 +90,6 @@ function addon:PLAYER_LOGIN()
 	MiniMapInstanceDifficulty:UnregisterAllEvents()
 	MinimapCluster:EnableMouse(false)
 	DurabilityFrame:SetAlpha(0)
-
-	local coordsText = Minimap:CreateFontString(nil, "OVERLAY")
-	coordsText:SetPoint("BOTTOM", Minimap, "TOP", 0, 5)
-	coordsText:SetFont(FONT, 12)
-	coordsText:SetShadowColor(0, 0, 0)
-	coordsText:SetShadowOffset(0.75, -0.75)
-
-	C_Timer.NewTicker(1.0, function()
-		local x, y = GetPlayerMapPosition("player")
-		coordsText:SetFormattedText("%.1f / %.1f", x * 100, y * 100)
-	end)
 
 	for _, name in next, {
 		'GameTimeFrame',
