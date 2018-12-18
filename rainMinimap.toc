@@ -1,4 +1,4 @@
-## Interface: 60200
+## Interface: 80100
 ## Author: Rainrider
 ## Version: 1.0
 ## Title: rain|cff0099ccMinimap|r
