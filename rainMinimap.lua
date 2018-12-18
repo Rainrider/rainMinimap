@@ -5,7 +5,9 @@ local BACKDROP = {
 }
 local FONT = rainDB and rainDB.font2 or GameFontNormal:GetFont()
 
-local GetPlayerMapPosition = GetPlayerMapPosition
+local C_Map = _G.C_Map
+local GetBestMapForUnit = C_Map.GetBestMapForUnit
+local GetPlayerMapPosition = C_Map.GetPlayerMapPosition
 
 local addon = CreateFrame('Frame', nil, Minimap)
 addon:SetScript('OnEvent', function(self, event, ...) self[event](self, ...) end)
@@ -34,17 +36,26 @@ function addon:PLAYER_LOGIN()
 		self:SetZoom(self:GetZoom() + (self:GetZoom() == 0 and direction < 0 and 0 or direction))
 	end)
 
-	local coordsText = Minimap:CreateFontString(nil, "OVERLAY")
-	coordsText:SetPoint("BOTTOM", Minimap, "TOP", 0, 5)
+	local coordsText = Minimap:CreateFontString(nil, 'OVERLAY')
+	coordsText:SetPoint('BOTTOM', Minimap, 'TOP', 0, 5)
 	coordsText:SetFont(FONT, 12)
 	coordsText:SetShadowColor(0, 0, 0)
 	coordsText:SetShadowOffset(0.75, -0.75)
 
 	local function UpdatePlayerCoords()
-		local x, y = GetPlayerMapPosition("player")
-		if (x and y) then
-			coordsText:SetFormattedText("%.1f / %.1f", x * 100, y * 100)
+		local x, y
+		local mapID = GetBestMapForUnit('player')
+		if mapID then
+			local mapPosObject = GetPlayerMapPosition(mapID, 'player')
+			if mapPosObject then
+				x, y = mapPosObject:GetXY()
+			end
 		end
+
+		x = x or 0
+		y = y or 0
+
+		coordsText:SetFormattedText("%.2f / %.2f", x * 100, y * 100)
 	end
 
 	local ticker
