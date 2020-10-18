@@ -16,6 +16,7 @@ addon:RegisterEvent('PLAYER_LOGIN')
 function addon:PLAYER_LOGIN()
 	MinimapCluster:ClearAllPoints()
 	MinimapCluster:SetPoint('TOPRIGHT', -10, -10)
+	Mixin(Minimap, BackdropTemplateMixin)
 	Minimap:SetBackdrop(BACKDROP)
 	Minimap:SetBackdropColor(0, 0, 0)
 	Minimap:SetMaskTexture(TEXTURE)
@@ -97,10 +98,20 @@ function addon:PLAYER_LOGIN()
 	MiniMapMailFrame:SetPoint('TOPLEFT')
 	MiniMapMailIcon:SetTexture([[Interface\Minimap\Tracking\Mailbox]])
 
-	MiniMapInstanceDifficulty:Hide()
-	MiniMapInstanceDifficulty:UnregisterAllEvents()
-	MinimapCluster:EnableMouse(false)
-	DurabilityFrame:SetAlpha(0)
+	-- MiniMapInstanceDifficulty:Hide()
+	-- MiniMapInstanceDifficulty:UnregisterAllEvents()
+	-- MinimapCluster:EnableMouse(false)
+	-- DurabilityFrame:SetAlpha(0)
+
+	-- for _, difficulty in next, {
+	-- 	'MiniMapInstanceDifficulty',
+	-- 	'MiniMapChallengeMode',
+	-- 	'GuildInstanceDifficulty'
+	-- } do
+	-- 	local indicator = _G[difficulty]
+	-- 	indicator:ClearAllPoints()
+	-- 	indicator:SetPoint('TOPRIGHT', Minimap, 'BOTTOMRIGHT')
+	-- end
 
 	for _, name in next, {
 		'GameTimeFrame',

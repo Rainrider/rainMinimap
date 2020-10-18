@@ -1,6 +1,6 @@
-## Interface: 80100
+## Interface: 90001
 ## Author: Rainrider
-## Version: 1.0
+## Version: 1.0.1
 ## Title: rain|cff0099ccMinimap|r
 ## Notes: Minimap simplicity
 ## OptionalDeps: rainLib
